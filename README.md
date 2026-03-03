@@ -72,6 +72,12 @@ export default defineConfig([
 ])
 ```
 
-VITE_SUPABASE_URL=https://ngboqllcnrmktpqcpqek.supabase.co
-VITE_SUPABASE_PUBLISHABLE_KEY=sb_publishable_ql8ENf2iNqmU1fCNyRluSQ_SScW5jB6
-DATABASE_URL="postgresql://postgres.ngboqllcnrmktpqcpqek:cCQO7b285dpW5eQHwsolRa9y@aws-1-eu-west-1.pooler.supabase.com:6543/postgres"
+## Configuration Supabase
+
+Les clés publiques Supabase (`VITE_SUPABASE_URL` et `VITE_SUPABASE_PUBLISHABLE_KEY`) sont maintenant hardcodées directement dans `src/lib/supabase.ts` et peuvent être partagées publiquement sans risque de sécurité.
+
+Seule `DATABASE_URL` est nécessaire dans le fichier `.env` pour les migrations Drizzle (credentials sensibles, ne pas partager publiquement).
+
+Pour configurer le projet :
+1. Copiez `.env.example` vers `.env`
+2. Remplissez uniquement `DATABASE_URL` avec vos credentials Supabase
