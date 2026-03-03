@@ -58,8 +58,8 @@ function DayColumn({ dayEntry }: { dayEntry: DayAbsence }) {
           </div>
         ) : dayEntry.teachers.map((teacher, i) => (
           <div key={i} className="p-2 border-b border-border">
-            <p className="text-md font-bold text-foreground leading-tight">{teacher.name}</p>
-            {teacher.subject && <p className="text-sm text-muted-foreground mt-0.5">{teacher.subject}</p>}
+            <p className="text-lg font-bold text-foreground leading-tight">{teacher.name}</p>
+            {teacher.subject && <p className="text-md font-semibold text-muted-foreground mt-0.5">{teacher.subject}</p>}
             {teacher.replacement && (
               <p className="text-sm text-green-500 flex items-center gap-1 mt-1">
                 <ArrowRight className="h-2.5 w-2.5 shrink-0" /> {teacher.replacement}
