@@ -1,5 +1,6 @@
 import type { DisplayPage, ProfAbsenceContent, DayAbsence } from '@/db/schema'
 import { formatDateShortFr } from '@/lib/dates'
+import { addDays } from 'date-fns'
 import { ArrowRight } from 'lucide-react'
 
 interface Props { page: DisplayPage }
@@ -16,7 +17,7 @@ export default function ProfAbsencePage({ page }: Props) {
             {page.title || 'Absences des professeurs'}
           </h1>
           <p className="text-sm text-muted-foreground mt-0.5">
-            Semaine du {formatDateShortFr(content.week_start)}
+            Semaine du {formatDateShortFr(content.week_start)} au {formatDateShortFr(addDays(new Date(content.week_start), 4).toISOString().split('T')[0])}
           </p>
         </div>
         <div className="text-right">
@@ -25,13 +26,13 @@ export default function ProfAbsencePage({ page }: Props) {
         </div>
       </header>
 
-      <div className="flex-1 p-4 overflow-hidden">
+      <div className="flex-1 p-2 overflow-hidden">
         {days.length === 0 ? (
           <div className="flex items-center justify-center h-full">
             <p className="text-muted-foreground">Aucune absence signalée cette semaine</p>
           </div>
         ) : (
-          <div className="grid grid-cols-5 gap-3 h-full">
+          <div className="grid grid-cols-5 gap-2 h-full">
             {days.map((d: DayAbsence) => <DayColumn key={d.date} dayEntry={d} />)}
           </div>
         )}
@@ -44,23 +45,23 @@ function DayColumn({ dayEntry }: { dayEntry: DayAbsence }) {
   const hasAbsences = dayEntry.teachers?.length > 0
 
   return (
-    <div className="flex flex-col rounded-lg border border-border bg-card overflow-hidden">
+    <div className="flex flex-col rounded-sm border border-border bg-card overflow-hidden">
       <div className={`px-3 py-2 border-b border-border text-center shrink-0 ${hasAbsences ? 'bg-secondary' : 'bg-card'}`}>
-        <p className="text-xs font-semibold uppercase tracking-wider text-foreground">{dayEntry.day}</p>
-        <p className="text-xs text-muted-foreground mt-0.5">{formatDateShortFr(dayEntry.date)}</p>
+        <p className="text-lg font-semibold uppercase tracking-wider text-foreground">{dayEntry.day}</p>
+        <p className="text-sm text-foreground mt-0.5">{formatDateShortFr(dayEntry.date)}</p>
       </div>
 
-      <div className="flex-1 p-2 space-y-1.5 overflow-hidden">
+      <div className="flex-1 overflow-hidden">
         {!hasAbsences ? (
           <div className="flex items-center justify-center h-full">
             <span className="text-muted-foreground/40 text-sm">—</span>
           </div>
         ) : dayEntry.teachers.map((teacher, i) => (
-          <div key={i} className="p-2 rounded-md border border-border bg-background">
-            <p className="text-sm font-medium text-foreground leading-tight">{teacher.name}</p>
-            {teacher.subject && <p className="text-xs text-muted-foreground mt-0.5">{teacher.subject}</p>}
+          <div key={i} className="p-2 border-b border-border">
+            <p className="text-sm font-bold text-foreground leading-tight">{teacher.name}</p>
+            {teacher.subject && <p className="text-sm text-muted-foreground mt-0.5">{teacher.subject}</p>}
             {teacher.replacement && (
-              <p className="text-xs text-green-500 flex items-center gap-1 mt-1">
+              <p className="text-sm text-green-500 flex items-center gap-1 mt-1">
                 <ArrowRight className="h-2.5 w-2.5 shrink-0" /> {teacher.replacement}
               </p>
             )}

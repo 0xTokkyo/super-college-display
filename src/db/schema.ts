@@ -30,6 +30,7 @@ export type DayAbsence = {
 
 export type ProfAbsenceContent = {
   week_start: string // ISO date: YYYY-MM-DD (Monday)
+  week_end: string // ISO date: YYYY-MM-DD (Friday)
   absences: DayAbsence[]
 }
 
