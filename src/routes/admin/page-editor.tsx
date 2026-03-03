@@ -3,6 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom'
 import { toast } from 'sonner'
 import { fetchPageById, createPage, updatePage } from '@/lib/pages'
 import { getCurrentWeekMonday, getWeekDays } from '@/lib/dates'
+import { addDays } from 'date-fns'
 import type { DisplayPage, ProfAbsenceContent, ShowDocumentContent, PageContent } from '@/db/schema'
 import ProfAbsenceEditor from '@/components/admin/editors/ProfAbsenceEditor'
 import ShowDocumentEditor from '@/components/admin/editors/ShowDocumentEditor'
@@ -19,7 +20,8 @@ type PageType = 'prof_absence' | 'show_document'
 function defaultContent(type: PageType): PageContent {
   if (type === 'prof_absence') {
     const weekStart = getCurrentWeekMonday()
-    return { week_start: weekStart, absences: getWeekDays(weekStart).map(({ day, date }) => ({ day, date, teachers: [] })) } as ProfAbsenceContent
+    const weekEnd = addDays(new Date(weekStart), 4).toISOString().split('T')[0]
+    return { week_start: weekStart, week_end: weekEnd, absences: getWeekDays(weekStart).map(({ day, date }) => ({ day, date, teachers: [] })) } as ProfAbsenceContent
   }
   return { media_type: 'image', storage_path: '', public_url: '', caption: '' } as ShowDocumentContent
 }

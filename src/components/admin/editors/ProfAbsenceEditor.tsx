@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import type { ProfAbsenceContent, DayAbsence, TeacherAbsence } from '@/db/schema'
 import { getWeekDays, getCurrentWeekMonday } from '@/lib/dates'
+import { addDays } from 'date-fns'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -13,7 +14,8 @@ interface Props {
 }
 
 function emptyContent(weekStart: string): ProfAbsenceContent {
-  return { week_start: weekStart, absences: getWeekDays(weekStart).map(({ day, date }) => ({ day, date, teachers: [] })) }
+  const weekEnd = addDays(new Date(weekStart), 4).toISOString().split('T')[0]
+  return { week_start: weekStart, week_end: weekEnd, absences: getWeekDays(weekStart).map(({ day, date }) => ({ day, date, teachers: [] })) }
 }
 
 export default function ProfAbsenceEditor({ initial, onChange }: Props) {
@@ -22,8 +24,10 @@ export default function ProfAbsenceEditor({ initial, onChange }: Props) {
   function update(next: ProfAbsenceContent) { setContent(next); onChange(next) }
 
   function handleWeekChange(weekStart: string) {
+    const weekEnd = addDays(new Date(weekStart), 4).toISOString().split('T')[0]
     update({
       week_start: weekStart,
+      week_end: weekEnd,
       absences: getWeekDays(weekStart).map(({ day, date }) => {
         const ex = content.absences.find(a => a.day === day)
         return ex ? { ...ex, date } : { day, date, teachers: [] }
