@@ -82,9 +82,38 @@ Pour configurer le projet :
 1. Copiez `.env.example` vers `.env`
 2. Remplissez uniquement `DATABASE_URL` avec vos credentials Supabase
 
-## Déploiement sur Windows (sans serveur web)
+## Déploiement sur Windows
 
-Le build est configuré pour fonctionner directement en ouvrant le fichier HTML dans un navigateur web, sans besoin de serveur web ou de runtime.
+Le build peut être utilisé de deux façons :
+
+### Option 1 : Avec un serveur HTTP local (recommandé)
+
+Pour ouvrir l'application avec `http://localhost` au lieu de `file://` :
+
+**Sur Windows :**
+1. Après le build, allez dans le dossier `dist/`
+2. Double-cliquez sur `serve.bat`
+3. Ouvrez votre navigateur sur `http://localhost:8000`
+
+**Sur Mac/Linux :**
+1. Après le build, allez dans le dossier `dist/`
+2. Exécutez `chmod +x serve.sh && ./serve.sh`
+3. Ouvrez votre navigateur sur `http://localhost:8000`
+
+**Avec Node.js installé :**
+```bash
+npm run serve
+```
+
+### Option 2 : Sans serveur web (file://)
+
+Le build est aussi configuré pour fonctionner directement en ouvrant le fichier HTML dans un navigateur web.
+
+1. Copiez tout le contenu du dossier `dist/` sur n'importe quel PC Windows
+2. Ouvrez `dist/index.html` directement dans un navigateur web
+3. L'application fonctionnera immédiatement
+
+**Note :** Les URLs utiliseront le format hash (`#/admin` au lieu de `/admin`) pour fonctionner avec le protocole `file://`. C'est normal et nécessaire pour que l'application fonctionne sans serveur web.
 
 ### Build du projet
 
@@ -92,12 +121,4 @@ Le build est configuré pour fonctionner directement en ouvrant le fichier HTML 
 npm run build
 ```
 
-Le dossier `dist/` contiendra tous les fichiers nécessaires.
-
-### Installation sur Windows
-
-1. Copiez tout le contenu du dossier `dist/` sur n'importe quel PC Windows
-2. Ouvrez `dist/index.html` dans n'importe quel navigateur web (Chrome, Edge, Firefox, etc.)
-3. L'application fonctionnera immédiatement, sans installation ni configuration
-
-**Note :** Les URLs utiliseront le format hash (`#/admin` au lieu de `/admin`) pour fonctionner avec le protocole `file://`. C'est normal et nécessaire pour que l'application fonctionne sans serveur web.
+Le dossier `dist/` contiendra tous les fichiers nécessaires, y compris les scripts `serve.bat` (Windows) et `serve.sh` (Mac/Linux).
