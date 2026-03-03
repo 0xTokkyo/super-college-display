@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
+import { HashRouter, Routes, Route, Navigate } from 'react-router-dom'
 import { TooltipProvider } from '@/components/ui/tooltip'
 import { Toaster } from '@/components/ui/sonner'
 import DisplayScreen from './routes/display'
@@ -10,7 +10,7 @@ import { AuthGuard } from './components/admin/AuthGuard'
 export default function App() {
   return (
     <TooltipProvider>
-      <BrowserRouter>
+      <HashRouter>
         <Routes>
           {/* ── TV Display ── */}
           <Route path="/" element={<DisplayScreen />} />
@@ -23,7 +23,7 @@ export default function App() {
           {/* ── Fallback ── */}
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
-      </BrowserRouter>
+      </HashRouter>
       <Toaster />
     </TooltipProvider>
   )

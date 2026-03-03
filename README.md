@@ -81,3 +81,23 @@ Seule `DATABASE_URL` est nécessaire dans le fichier `.env` pour les migrations 
 Pour configurer le projet :
 1. Copiez `.env.example` vers `.env`
 2. Remplissez uniquement `DATABASE_URL` avec vos credentials Supabase
+
+## Déploiement sur Windows (sans serveur web)
+
+Le build est configuré pour fonctionner directement en ouvrant le fichier HTML dans un navigateur web, sans besoin de serveur web ou de runtime.
+
+### Build du projet
+
+```bash
+npm run build
+```
+
+Le dossier `dist/` contiendra tous les fichiers nécessaires.
+
+### Installation sur Windows
+
+1. Copiez tout le contenu du dossier `dist/` sur n'importe quel PC Windows
+2. Ouvrez `dist/index.html` dans n'importe quel navigateur web (Chrome, Edge, Firefox, etc.)
+3. L'application fonctionnera immédiatement, sans installation ni configuration
+
+**Note :** Les URLs utiliseront le format hash (`#/admin` au lieu de `/admin`) pour fonctionner avec le protocole `file://`. C'est normal et nécessaire pour que l'application fonctionne sans serveur web.
