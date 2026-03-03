@@ -71,3 +71,7 @@ export default defineConfig([
   },
 ])
 ```
+
+VITE_SUPABASE_URL=https://ngboqllcnrmktpqcpqek.supabase.co
+VITE_SUPABASE_PUBLISHABLE_KEY=sb_publishable_ql8ENf2iNqmU1fCNyRluSQ_SScW5jB6
+DATABASE_URL="postgresql://postgres.ngboqllcnrmktpqcpqek:cCQO7b285dpW5eQHwsolRa9y@aws-1-eu-west-1.pooler.supabase.com:6543/postgres"
